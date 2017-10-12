@@ -1,0 +1,6 @@
+%h1= @recipe.tittle
+%p= @recipe.description
+
+= link_to "Wstecz", root_path, class: "btn btn-default"
+= link_to "Edytuj", edit_recipe_path, class: "btn btn-default"
+= link_to "Usuń", recipe_path, method: :delete, data: {confirm: "Czy chcesz usunąć ten przepis?"}, class: "btn btn-default"
