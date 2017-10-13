@@ -1,7 +1,33 @@
-=image_tag @recipe.image.url(:medium, class: "recipe_image")
-%h1= @recipe.tittle
-%p= @recipe.description
+.main_content
+	#recipe_top.row
+		.col-md-4
+			= image_tag @recipe.image.url(:medium), class: "recipe_image"
+		.col-md-8
+			#recipe_info
+				%h1= @recipe.tittle
+				%p= @recipe.description
+	.row
+		.col-md-2
+			#Parameters
+				%p Czas przygotowania: #{number_with_precision(@recipe.preparation_time, precision: 0)} min.
+				%p Ilość porcji: #{@recipe.portion}
+	.row
+		.col-md-6
+			#ingredient
+				%h2 Skladniki:
+				%ul
+					- @recipe.ingredients.each do |ingredient|
+						%li #{ingredient.name} 
 
-= link_to "Wstecz", root_path, class: "btn btn-default"
-= link_to "Edytuj", edit_recipe_path, class: "btn btn-default"
-= link_to "Usuń", recipe_path, method: :delete, data: {confirm: "Czy chcesz usunąć ten przepis?"}, class: "btn btn-default"
+		.col-md-6
+			#directions
+				%h2 Wskazówki
+				%ul
+					- @recipe.directions.each do |direction|
+						%li= direction.step
+
+	.row
+		.col-md-12
+			= link_to "Back", root_path, class: "btn btn-default"
+			= link_to "Edytuj", edit_recipe_path, class: "btn btn-default"
+			= link_to "Usun", recipe_path, method: :delete, data: {confirm: "czy napewno?" }, class: "btn btn-default"

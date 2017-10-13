@@ -1,5 +1,5 @@
 class Recipe < ApplicationRecord
-	has_many :directions
+	has_many :directions, inverse_of: :recipe
 	has_many :recipe_ingredients
 	has_many :ingredients, through: :recipe_ingredients
 
@@ -9,9 +9,7 @@ class Recipe < ApplicationRecord
 	accepts_nested_attributes_for :directions,
 									reject_if: proc { |attributes| attributes['step'].blank? },
 									allow_destroy: true
-	accepts_nested_attributes_for :recipe_ingredients,
-									reject_if: proc { |attributes| attributes['quantity'].blank? },
-									allow_destroy: true
+
 	
 	validates :tittle, :description, :image, presence: true
     has_attached_file :image, styles: { :medium => "400x400#" }
